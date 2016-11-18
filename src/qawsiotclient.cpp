@@ -5,12 +5,10 @@
 #include "qmqttclient.h"
 #include <QString>
 
-QAwsIoTClientPrivate::QAwsIoTClientPrivate(const QString &clientId, const QString &region,
-                                           QAwsIoTClient * const q) :
+QAwsIoTClientPrivate::QAwsIoTClientPrivate(const QString &clientId, QAwsIoTClient * const q) :
     QObject(),
     q_ptr(q),
-    m_mqttClient(new QMqttClient(clientId)),
-    m_region(region)
+    m_mqttClient(new QMqttClient(clientId))
 {
     Q_ASSERT(q);
 }
@@ -18,13 +16,13 @@ QAwsIoTClientPrivate::QAwsIoTClientPrivate(const QString &clientId, const QStrin
 QAwsIoTClientPrivate::~QAwsIoTClientPrivate()
 {}
 
-void QAwsIoTClientPrivate::connect(const QString &hostName,
+void QAwsIoTClientPrivate::connect(const QString &hostName, const QString &region,
                                    const QString &accessKeyId, const QString &secretAccessKey,
                                    const QString &sessionToken)
 {
     makeSignalSlotConnections();
 
-    QAwsIoTNetworkRequest request(m_region, hostName, accessKeyId, secretAccessKey, sessionToken);
+    QAwsIoTNetworkRequest request(region, hostName, accessKeyId, secretAccessKey, sessionToken);
 
     m_mqttClient->connect(request);
 }
@@ -72,8 +70,8 @@ void QAwsIoTClientPrivate::makeSignalSlotConnections()
                      q, &QAwsIoTClient::messageReceived, Qt::QueuedConnection);
 }
 
-QAwsIoTClient::QAwsIoTClient(const QString &clientId, const QString & region) :
-    d_ptr(new QAwsIoTClientPrivate(clientId, region, this))
+QAwsIoTClient::QAwsIoTClient(const QString &clientId) :
+    d_ptr(new QAwsIoTClientPrivate(clientId, this))
 {
 }
 
@@ -81,13 +79,13 @@ QAwsIoTClient::~QAwsIoTClient()
 {
 }
 
-void QAwsIoTClient::connect(const QString &hostName,
+void QAwsIoTClient::connect(const QString &hostName, const QString &region,
                             const QString &accessKeyId, const QString &secretAccessKey,
                             const QString &sessionToken)
 {
     Q_D(QAwsIoTClient);
 
-    d->connect(hostName, accessKeyId, secretAccessKey, sessionToken);
+    d->connect(hostName, region, accessKeyId, secretAccessKey, sessionToken);
 }
 
 void QAwsIoTClient::disconnect()

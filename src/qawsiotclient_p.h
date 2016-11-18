@@ -15,10 +15,10 @@ class QAwsIoTClientPrivate: public QObject
     Q_DECLARE_PUBLIC(QAwsIoTClient)
 
 public:
-    QAwsIoTClientPrivate(const QString &clientId, const QString &region, QAwsIoTClient * const q);
+    QAwsIoTClientPrivate(const QString &clientId, QAwsIoTClient * const q);
     virtual ~QAwsIoTClientPrivate();
 
-    void connect(const QString &hostName, const QString &accessKeyId,
+    void connect(const QString &hostName, const QString &region, const QString &accessKeyId,
                  const QString &secretAccessKey, const QString &sessionToken);
     void disconnect();
     void subscribe(const QString &topic, QMqttProtocol::QoS qos, std::function<void(bool)> cb);
@@ -30,8 +30,6 @@ private:
     QAwsIoTClient * const q_ptr;
 
     QScopedPointer<QMqttClient> m_mqttClient;
-
-    const QString m_region;
 
 private:
     void makeSignalSlotConnections();

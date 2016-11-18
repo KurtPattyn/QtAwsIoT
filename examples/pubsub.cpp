@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     const QString sessionToken;
     const QString clientId = "meMyselfAndI";
 
-    QAwsIoTClient client(clientId, region);
+    QAwsIoTClient client(clientId);
     client.connect(&client, &QAwsIoTClient::connected, [&client]() {
         qDebug() << "Connected to AWS IoT";
         client.subscribe("resources/wsid1234/messages/in", [&](bool result) {
@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
         qDebug() << "Received message on topic" << topicName << ":" << message;
     });
 
-    client.connect(hostname, accessKeyId, secretAccessKey, sessionToken);
+    client.connect(hostname, region, accessKeyId, secretAccessKey, sessionToken);
 
     return a.exec();
 }
