@@ -2,15 +2,27 @@
 
 ##### Author: [Kurt Pattyn](https://github.com/kurtpattyn).
 
-QtAwsIoT is Qt library that implements a client for the [Amazon AWS IoT](https://aws.amazon.com/iot/).
-QtAwsIoT depends on [QtMqtt](https://github.com/KurtPattyn/QtMqtt/) and Qt libraries.
+QtAwsIoT is Qt library that implements a client for [Amazon AWS IoT](https://aws.amazon.com/iot/).
+
+#### Features
+- MQTT over secure WebSockets support, including SigV4 token authentication support
+- Keep-alive (aka ping)
+- Subscribing to topics
+- Publishing and receiving messages
+
+#### Missing features
+- Native MQTT connectivity  
+  Currently only supports MQTT over secure Websockets.
+- Thing Shadows
+- Reconnection and resubscription
+- Queuing of messages
 
 ## Building and installing
 
-### Requirements
-QtAwsIoT is created using Qt version 5.  
-QtAwsIoT uses CMake to build the sources. The minimum version of CMake is 3.5.
-It further requires [QtMqtt](https://github.com/KurtPattyn/QtMqtt/).
+### Prerequisites
+1. **Qt version 5**  
+2. **CMake v3.5** or higher.  
+3. [QtMqtt](https://github.com/KurtPattyn/QtMqtt/).
 
 ### Building
 ```bash
