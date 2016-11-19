@@ -26,26 +26,25 @@ QtAwsIoT is Qt library that implements a client for [Amazon AWS IoT](https://aws
 
 ### Building
 ```bash
-#Create a directory to hold the sources.
-mkdir qtawsiot
-cd qtawsiot
+# Check out the sources.
+git clone https://github.com/KurtPattyn/QtAwsIoT.git
 
-#Check out the sources.
-git clone...
+# Go into the checked out directory
+cd QtAwsIoT
 
-#Create build directory  
+# Create build directory  
 mkdir build
 
-#Go into the build directory  
+# Go into the build directory  
 cd build
 
-#Create the build files  
+# Create the build files  
 cmake -DCMAKE_BUILD_TYPE=debug -DBUILD_SHARED_LIBS=OFF ..
 
-#To make a release build, change `-DCMAKE_BUILD_TYPE=debug` to `-DCMAKE_BUILD_TYPE=release`  
-#To make a dynamic library, change `-DBUILD_SHARED_LIBS=OFF` to `-DBUILD_SHARED_LIBS=ON`
+# To make a release build, change `-DCMAKE_BUILD_TYPE=debug` to `-DCMAKE_BUILD_TYPE=release`  
+# To make a dynamic library, change `-DBUILD_SHARED_LIBS=OFF` to `-DBUILD_SHARED_LIBS=ON`
 
-#Build the library  
+# Build the library  
 make
 ```
 ### Run unit tests
