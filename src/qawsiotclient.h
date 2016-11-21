@@ -3,6 +3,7 @@
 #include "qmqttprotocol.h"
 #include "qawsiot_global.h"
 #include <QScopedPointer>
+#include <functional>
 
 class QAwsIoTClientPrivate;
 class QByteArray;
