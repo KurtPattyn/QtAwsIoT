@@ -45,6 +45,7 @@ install:
     git clone https://github.com/KurtPattyn/QtMqtt.git
     cd QtMqtt
     mkdir build
+    cd build
     cmake -DCMAKE_BUILD_TYPE=debug -DBUILD_SHARED_LIBS=OFF -DPRIVATE_TESTS_ENABLED=ON ..
     cmake --build . --target all
     sudo cmake --build . --target install
