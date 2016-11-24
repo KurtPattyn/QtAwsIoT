@@ -32,10 +32,17 @@ install:
       sudo apt-add-repository -y ppa:beineri/opt-qt57-trusty
       sudo apt-get -qq update
       sudo apt-get -qq install qt57tools qt57websockets
+      
+      export QTDIR="/opt/qt57"
+      export PATH="$QTDIR/bin:$PATH"
+      qt57-env.sh
     else
       brew update > /dev/null
       brew tap homebrew/versions
       brew install qt5
+      
+      export QTDIR="/usr/local/Cellar/qt5/5.7.0"
+      export PATH="$QTDIR/bin:$PATH"
     fi
     
   ############################################################################
@@ -51,16 +58,6 @@ install:
     sudo cmake --build . --target install
     
 before_script:
-  - |
-    if [[ "${TRAVIS_OS_NAME}" == "linux" ]]; then
-      export QTDIR="/opt/qt57"
-      export PATH="$QTDIR/bin:$PATH"
-      qt57-env.sh
-    else
-      export QTDIR="/usr/local/Cellar/qt5/5.7.0"
-      export PATH="$QTDIR/bin:$PATH"
-    fi
-    
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir build
   - cd build
