@@ -76,6 +76,11 @@ find_package(Qt${QT_MAJOR_VERSION_REQUIRED}Mqtt REQUIRED)
 # Add compiler and linker flags
 #==============================
 
+if (NOT ${BUILD_SHARED_LIBS})
+    set(QTAWSIOT_STATIC_LIB ON)
+    add_definitions(-DQTAWSIOT_STATIC_LIB)
+endif()
+
 add_definitions(-Wall -fvisibility=hidden)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

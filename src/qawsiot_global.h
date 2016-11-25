@@ -2,15 +2,21 @@
 
 #include <QtCore/QtGlobal>
 
-#ifndef QT_STATIC
-#  if defined(QT_BUILD_QTAWSIOT_LIB)
+#ifndef QTAWSIOT_STATIC_LIB
+#  if defined(QTAWSIOT_LIBRARY)
 #    define QTAWSIOT_EXPORT Q_DECL_EXPORT
-#    if defined(PRIVATE_TESTS_ENABLED)
+#    ifdef PRIVATE_TESTS_ENABLED
 #      define QTAWSIOT_AUTOTEST_EXPORT Q_DECL_EXPORT
+#    else
+#      define QTAWSIOT_AUTOTEST_EXPORT
 #    endif
 #  else
 #    define QTAWSIOT_EXPORT Q_DECL_IMPORT
-#    define QTAWSIOT_AUTOTEST_EXPORT Q_DECL_IMPORT
+#    ifdef PRIVATE_TESTS_ENABLED
+#      define QTAWSIOT_AUTOTEST_EXPORT Q_DECL_IMPORT
+#    else
+#      define QTAWSIOT_AUTOTEST_EXPORT
+#    endif
 #  endif
 #else
 #  define QTAWSIOT_EXPORT
