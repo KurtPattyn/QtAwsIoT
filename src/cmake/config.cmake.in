@@ -23,8 +23,13 @@ check_required_components(Qt@QT_MAJOR_VERSION_REQUIRED@Core
                           Qt@QT_MAJOR_VERSION_REQUIRED@WebSockets
                           Qt@QT_MAJOR_VERSION_REQUIRED@Mqtt)
 
-# QtMqtt requires C++11
+# QtAwsIoT requires C++11
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(@PACKAGE_INCLUDE_INSTALL_DIR@)
+
+if (@QTAWSIOT_STATIC_LIB@)
+    message(STATUS "Using statically linked QtAwsIoT library")
+    add_definitions(-DQTAWSIOT_STATIC_LIB)
+endif()
