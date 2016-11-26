@@ -72,8 +72,6 @@ find_package(Qt${QT_MAJOR_VERSION_REQUIRED}Network REQUIRED)
 find_package(Qt${QT_MAJOR_VERSION_REQUIRED}WebSockets REQUIRED)
 find_package(Qt${QT_MAJOR_VERSION_REQUIRED}Mqtt REQUIRED)
 
-export(PACKAGE ${PACKAGE_NAME})
-
 #==============================
 # Add compiler and linker flags
 #==============================
