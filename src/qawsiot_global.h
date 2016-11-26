@@ -2,7 +2,7 @@
 
 #include <QtCore/QtGlobal>
 
-#ifndef QTAWSIOT_STATIC_LIB
+#ifdef BUILD_SHARED_LIBS
 #  if defined(QTAWSIOT_LIBRARY)
 #    define QTAWSIOT_EXPORT Q_DECL_EXPORT
 #    ifdef PRIVATE_TESTS_ENABLED
