@@ -15,10 +15,10 @@ public:
                           const QString &sessionToken);
     virtual ~QAwsIoTNetworkRequest() = default;
     QAwsIoTNetworkRequest(const QAwsIoTNetworkRequest &) = default;
-    QAwsIoTNetworkRequest(QAwsIoTNetworkRequest &&) = default;
+    //QAwsIoTNetworkRequest(QAwsIoTNetworkRequest &&) = default;
 
     QAwsIoTNetworkRequest &operator =(const QAwsIoTNetworkRequest &) = default;
-    QAwsIoTNetworkRequest &operator =(QAwsIoTNetworkRequest &&) = default;
+    //QAwsIoTNetworkRequest &operator =(QAwsIoTNetworkRequest &&) = default;
 
 private:
     void signRequest(const QString &region, const QString &hostname, const QString &serviceName,
