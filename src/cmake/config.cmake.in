@@ -29,7 +29,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(@PACKAGE_INCLUDE_INSTALL_DIR@)
 
-if (@QTAWSIOT_STATIC_LIB@)
-    message(STATUS "Using statically linked QtAwsIoT library")
-    add_definitions(-DQTAWSIOT_STATIC_LIB)
+if (@BUILD_SHARED_LIBS@)
+    message(STATUS "Using dynamic linked @PROJECT_NAME@ library")
+    add_definitions(-DBUILD_SHARED_LIBS)
+else()
+    message(STATUS "Using static linked @PROJECT_NAME@ library")
 endif()
