@@ -15,6 +15,7 @@ class QTAWSIOT_EXPORT QAwsIoTClient: public QObject
     Q_DECLARE_PRIVATE(QAwsIoTClient)
 
 public:
+    QAwsIoTClient(const QString &clientId, const QString &willTopic, const QByteArray &willMessage);
     QAwsIoTClient(const QString &clientId);
     virtual ~QAwsIoTClient();
 

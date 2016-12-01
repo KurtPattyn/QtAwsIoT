@@ -15,6 +15,9 @@ class QAwsIoTClientPrivate: public QObject
     Q_DECLARE_PUBLIC(QAwsIoTClient)
 
 public:
+    QAwsIoTClientPrivate(const QString &clientId,
+                         const QString &willTopic, const QByteArray &willMessage,
+                         QAwsIoTClient * const q);
     QAwsIoTClientPrivate(const QString &clientId, QAwsIoTClient * const q);
     virtual ~QAwsIoTClientPrivate();
 

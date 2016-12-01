@@ -3,7 +3,20 @@
 #include "qawsiotnetworkrequest_p.h"
 #include "qmqttprotocol.h"
 #include "qmqttclient.h"
+#include "qmqttwill.h"
 #include <QString>
+
+QAwsIoTClientPrivate::QAwsIoTClientPrivate(const QString &clientId,
+                                           const QString &willTopic, const QByteArray &willMessage,
+                                           QAwsIoTClient * const q) :
+    QObject(),
+    q_ptr(q),
+    m_mqttClient(new QMqttClient(clientId,
+                                 QMqttWill(willTopic, willMessage,
+                                           false, QMqttProtocol::QoS::AT_LEAST_ONCE)))
+{
+    Q_ASSERT(q);
+}
 
 QAwsIoTClientPrivate::QAwsIoTClientPrivate(const QString &clientId, QAwsIoTClient * const q) :
     QObject(),
@@ -68,6 +81,12 @@ void QAwsIoTClientPrivate::makeSignalSlotConnections()
                      q, &QAwsIoTClient::error, Qt::QueuedConnection);
     QObject::connect(m_mqttClient.data(), &QMqttClient::messageReceived,
                      q, &QAwsIoTClient::messageReceived, Qt::QueuedConnection);
+}
+
+QAwsIoTClient::QAwsIoTClient(const QString &clientId,
+                             const QString &willTopic, const QByteArray &willMessage) :
+    d_ptr(new QAwsIoTClientPrivate(clientId, willTopic, willMessage, this))
+{
 }
 
 QAwsIoTClient::QAwsIoTClient(const QString &clientId) :
