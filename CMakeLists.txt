@@ -63,6 +63,9 @@ if (QTDIR)
   list (APPEND CMAKE_PREFIX_PATH ${QTDIR})
 endif (QTDIR)
 
+# We expect that QtMqtt was build and installed in the default location. Otherwise, you need to point it to the correct directory.
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/../QtMqtt/lib/cmake/Qt${QT_MAJOR_VERSION_REQUIRED}Mqtt")
+
 #include required CMake modules
 include(CMakePackageConfigHelpers)
 
