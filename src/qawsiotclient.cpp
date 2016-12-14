@@ -72,15 +72,15 @@ void QAwsIoTClientPrivate::makeSignalSlotConnections()
     Q_Q(QAwsIoTClient);
 
     QObject::connect(m_mqttClient.data(), &QMqttClient::connected,
-                     q, &QAwsIoTClient::connected, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::connected, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
     QObject::connect(m_mqttClient.data(), &QMqttClient::disconnected,
-                     q, &QAwsIoTClient::disconnected, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::disconnected, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
     QObject::connect(m_mqttClient.data(), &QMqttClient::stateChanged,
-                     q, &QAwsIoTClient::stateChanged, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::stateChanged, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
     QObject::connect(m_mqttClient.data(), &QMqttClient::error,
-                     q, &QAwsIoTClient::error, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::error, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
     QObject::connect(m_mqttClient.data(), &QMqttClient::messageReceived,
-                     q, &QAwsIoTClient::messageReceived, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::messageReceived, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
 }
 
 QAwsIoTClient::QAwsIoTClient(const QString &clientId,
