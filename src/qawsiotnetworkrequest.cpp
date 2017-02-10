@@ -50,7 +50,6 @@ void QAwsIoTNetworkRequest::signRequest(const QString &region,
     QVector<QString> headerNamesToEncode = { "host", "X-Amz-Date" };
     const QString hashingAlgorithm = "AWS4-HMAC-SHA256";
     const QDateTime current = QDateTime::fromMSecsSinceEpoch(timestamp).toUTC();
-    //const QDateTime current = QDateTime::currentDateTimeUtc();
 
     const QString &credentialScope =
             getDateString(current) + "/" + region + "/" + serviceName +"/aws4_request";
