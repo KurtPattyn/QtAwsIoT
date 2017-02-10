@@ -15,13 +15,12 @@ class QAwsIoTClientPrivate: public QObject
     Q_DECLARE_PUBLIC(QAwsIoTClient)
 
 public:
-    QAwsIoTClientPrivate(const QString &clientId,
-                         const QString &willTopic, const QByteArray &willMessage,
-                         QAwsIoTClient * const q);
     QAwsIoTClientPrivate(const QString &clientId, QAwsIoTClient * const q);
     virtual ~QAwsIoTClientPrivate();
 
-    void connect(const QString &hostName, const QString &region, const QString &accessKeyId,
+    void connect(const QString &hostName, const QString &region,
+                 const QString &willTopic, const QByteArray &willMessage,
+                 qint64 timestamp, const QString &accessKeyId,
                  const QString &secretAccessKey, const QString &sessionToken);
     void disconnect();
     void subscribe(const QString &topic, QMqttProtocol::QoS qos, std::function<void(bool)> cb);

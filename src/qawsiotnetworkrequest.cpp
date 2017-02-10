@@ -32,23 +32,26 @@ inline QString getDateString(const QDateTime &date)
 QAwsIoTNetworkRequest::QAwsIoTNetworkRequest(const QString &region, const QString &hostname,
                                              const QString &accessKeyId,
                                              const QString &secretAccessKey,
-                                             const QString &sessionToken) :
+                                             const QString &sessionToken,
+                                             qint64 timestamp) :
     QMqttNetworkRequest()
 {
-    signRequest(region, hostname, "iotdata", accessKeyId, secretAccessKey, sessionToken);
+    signRequest(region, hostname, "iotdata", accessKeyId, secretAccessKey, sessionToken, timestamp);
 }
-
 
 void QAwsIoTNetworkRequest::signRequest(const QString &region,
                                         const QString &hostname,
                                         const QString &serviceName,
                                         const QString &accessKeyId,
                                         const QString &secretAccessKey,
-                                        const QString &sessionToken)
+                                        const QString &sessionToken,
+                                        qint64 timestamp)
 {
     QVector<QString> headerNamesToEncode = { "host", "X-Amz-Date" };
     const QString hashingAlgorithm = "AWS4-HMAC-SHA256";
-    const QDateTime current = QDateTime::currentDateTimeUtc();
+    const QDateTime current = QDateTime::fromMSecsSinceEpoch(timestamp).toUTC();
+    //const QDateTime current = QDateTime::currentDateTimeUtc();
+
     const QString &credentialScope =
             getDateString(current) + "/" + region + "/" + serviceName +"/aws4_request";
 
