@@ -15,15 +15,16 @@ class QTAWSIOT_EXPORT QAwsIoTClient: public QObject
     Q_DECLARE_PRIVATE(QAwsIoTClient)
 
 public:
-    QAwsIoTClient(const QString &clientId, const QString &willTopic, const QByteArray &willMessage);
     QAwsIoTClient(const QString &clientId);
     virtual ~QAwsIoTClient();
 
     QString region() const;
 
     using QObject::connect;
-    void connect(const QString &hostName, const QString &region, const QString &accessKeyId,
-                 const QString &secretAccessKey, const QString &sessionToken = QString());
+    void connect(const QString &hostName, const QString &region, const QString &willTopic,
+                 const QByteArray &willMessage, qint64 timestamp,
+                 const QString &accessKeyId, const QString &secretAccessKey,
+                 const QString &sessionToken = QString());
     using QObject::disconnect;
     void disconnect();
 

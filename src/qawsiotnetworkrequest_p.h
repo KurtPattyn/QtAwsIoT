@@ -12,7 +12,7 @@ class QTAWSIOT_AUTOTEST_EXPORT QAwsIoTNetworkRequest: public QMqttNetworkRequest
 public:
     QAwsIoTNetworkRequest(const QString &region, const QString &hostname,
                           const QString &accessKeyId, const QString &secretAccessKey,
-                          const QString &sessionToken);
+                          const QString &sessionToken, qint64 timestamp);
     virtual ~QAwsIoTNetworkRequest() = default;
     QAwsIoTNetworkRequest(const QAwsIoTNetworkRequest &) = default;
 
@@ -29,7 +29,8 @@ public:
 private:
     void signRequest(const QString &region, const QString &hostname, const QString &serviceName,
                      const QString &accessKeyId, const QString &secretAccessKey,
-                     const QString &sessionToken);
+                     const QString &sessionToken,
+                     qint64 timestamp);
     QString createHashedCanonicalRequest(const QString &canonicalHeaders,
                                          const QString &signedHeaders) const;
     QByteArray getSignatureKey(const QString &secretAccessKey, const QString &date,
