@@ -11,6 +11,9 @@
 
 include("${CMAKE_CURRENT_LIST_DIR}/@CMAKE_CONFIG_FILE_BASE_NAME@Targets.cmake")
 
+# We expect that QtMqtt was build and installed in the default location. Otherwise, you need to point it to the correct directory.
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_INSTALL_PREFIX}/../QtMqtt/lib/cmake/Qt${QT_MAJOR_VERSION_REQUIRED}Mqtt")
+
 # find_package will silently look for the dependencies and set the correct
 # include directories and link libraries
 find_package(Qt@QT_MAJOR_VERSION_REQUIRED@Core QUIET)
