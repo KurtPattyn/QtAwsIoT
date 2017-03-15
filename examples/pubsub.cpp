@@ -2,12 +2,15 @@
 #include <QString>
 #include <QDebug>
 #include <QProcessEnvironment>
+#include <QDateTime>
 #include "qawsiotclient.h"
 #include "qmqttprotocol.h"
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
+
+    qRegisterMetaType<QMqttProtocol::State>("QMqttProtocol::State");
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     if (!env.contains(QStringLiteral("AWS_ACCESS_KEY_ID")) ||
@@ -45,8 +48,9 @@ int main(int argc, char *argv[])
                    [](const QString &topicName, const QByteArray &message) {
         qDebug() << "Received message on topic" << topicName << ":" << message;
     });
-
-    client.connect(hostname, region, accessKeyId, secretAccessKey, sessionToken);
+    const qint64 now = QDateTime::currentMSecsSinceEpoch();
+    client.connect(hostname, region, QString(), QByteArray(), now,
+                   accessKeyId, secretAccessKey, sessionToken);
 
     return a.exec();
 }
