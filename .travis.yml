@@ -62,15 +62,15 @@ install:
     cd QtMqtt
     mkdir build
     cd build
-    cmake -DCMAKE_BUILD_TYPE=debug -DBUILD_SHARED_LIBS=OFF -DPRIVATE_TESTS_ENABLED=ON ..
+    cmake -DCMAKE_BUILD_TYPE=debug -DBUILD_SHARED_LIBS=OFF -DPRIVATE_TESTS_ENABLED=ON -DCMAKE_INSTALL_PREFIX=/tmp/installed ..
     cmake --build . --target all
-    sudo cmake --build . --target install
+    cmake --build . --target install
     
 before_script:
   - cd ${TRAVIS_BUILD_DIR}
   - mkdir build
   - cd build
-  - cmake -DCMAKE_BUILD_TYPE=debug -DBUILD_SHARED_LIBS=${SHARED_LIBS} -DPRIVATE_TESTS_ENABLED=ON ..
+  - cmake -DCMAKE_BUILD_TYPE=debug -DBUILD_SHARED_LIBS=${SHARED_LIBS} -DQt5Mqtt_DIR=/tmp/installed/lib/cmake/Qt5Mqtt -DPRIVATE_TESTS_ENABLED=ON ..
 
 script:
   - cmake --build . --target all
