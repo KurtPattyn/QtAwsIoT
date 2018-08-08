@@ -9,8 +9,8 @@ configuration:
 
 environment:
   matrix:  
-  - SHARED=ON
-  - SHARED=OFF
+  - SHARED: ON
+  - SHARED: OFF
 
   VS_VERSION: Visual Studio 15 2017
   QT_VERSION: 5.11
