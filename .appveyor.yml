@@ -15,7 +15,7 @@ environment:
   VS_VERSION: Visual Studio 15 2017
   QT_VERSION: 5.11
   QT_COMPILED: msvc2017
-  INSTALL_DIR: "C:/projects/%APPVEYOR_PROJECT_NAME%/deps/devenv/installed"
+  INSTALL_DIR: "C:/projects/%APPVEYOR_PROJECT_NAME%/installed"
   MODULES_DIR: "%INSTALL_DIR%/lib/cmake"
   QT5MQTT: "%MODULES_DIR%/Qt5Mqtt"
 
