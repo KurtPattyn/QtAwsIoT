@@ -21,8 +21,10 @@ public:
     QString region() const;
 
     using QObject::connect;
-    void connect(const QString &hostName, const QString &region, const QString &accessKeyId,
-                 const QString &secretAccessKey, const QString &sessionToken = QString());
+    void connect(const QString &hostName, const QString &region, const QString &willTopic,
+                 const QByteArray &willMessage, qint64 timestamp,
+                 const QString &accessKeyId, const QString &secretAccessKey,
+                 const QString &sessionToken = QString());
     using QObject::disconnect;
     void disconnect();
 

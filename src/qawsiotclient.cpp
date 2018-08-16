@@ -3,6 +3,7 @@
 #include "qawsiotnetworkrequest_p.h"
 #include "qmqttprotocol.h"
 #include "qmqttclient.h"
+#include "qmqttwill.h"
 #include <QString>
 
 QAwsIoTClientPrivate::QAwsIoTClientPrivate(const QString &clientId, QAwsIoTClient * const q) :
@@ -17,14 +18,22 @@ QAwsIoTClientPrivate::~QAwsIoTClientPrivate()
 {}
 
 void QAwsIoTClientPrivate::connect(const QString &hostName, const QString &region,
+                                   const QString &willTopic, const QByteArray &willMessage,
+                                   qint64 timestamp,
                                    const QString &accessKeyId, const QString &secretAccessKey,
                                    const QString &sessionToken)
 {
     makeSignalSlotConnections();
 
-    QAwsIoTNetworkRequest request(region, hostName, accessKeyId, secretAccessKey, sessionToken);
+    QAwsIoTNetworkRequest request(region, hostName,
+                                  accessKeyId, secretAccessKey, sessionToken, timestamp);
 
-    m_mqttClient->connect(request);
+    QMqttWill will;
+
+    if (!willTopic.isEmpty() && !willMessage.isEmpty()) {
+        will = QMqttWill(willTopic, willMessage, false, QMqttProtocol::QoS::AT_LEAST_ONCE);
+    }
+    m_mqttClient->connect(request, will);
 }
 
 void QAwsIoTClientPrivate::disconnect()
@@ -59,15 +68,15 @@ void QAwsIoTClientPrivate::makeSignalSlotConnections()
     Q_Q(QAwsIoTClient);
 
     QObject::connect(m_mqttClient.data(), &QMqttClient::connected,
-                     q, &QAwsIoTClient::connected, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::connected, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
     QObject::connect(m_mqttClient.data(), &QMqttClient::disconnected,
-                     q, &QAwsIoTClient::disconnected, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::disconnected, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
     QObject::connect(m_mqttClient.data(), &QMqttClient::stateChanged,
-                     q, &QAwsIoTClient::stateChanged, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::stateChanged, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
     QObject::connect(m_mqttClient.data(), &QMqttClient::error,
-                     q, &QAwsIoTClient::error, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::error, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
     QObject::connect(m_mqttClient.data(), &QMqttClient::messageReceived,
-                     q, &QAwsIoTClient::messageReceived, Qt::QueuedConnection);
+                     q, &QAwsIoTClient::messageReceived, static_cast<Qt::ConnectionType>(Qt::QueuedConnection | Qt::UniqueConnection));
 }
 
 QAwsIoTClient::QAwsIoTClient(const QString &clientId) :
@@ -80,12 +89,15 @@ QAwsIoTClient::~QAwsIoTClient()
 }
 
 void QAwsIoTClient::connect(const QString &hostName, const QString &region,
+                            const QString &willTopic, const QByteArray &willMessage,
+                            qint64 timestamp,
                             const QString &accessKeyId, const QString &secretAccessKey,
                             const QString &sessionToken)
 {
     Q_D(QAwsIoTClient);
 
-    d->connect(hostName, region, accessKeyId, secretAccessKey, sessionToken);
+    d->connect(hostName, region, willTopic, willMessage, timestamp,
+               accessKeyId, secretAccessKey, sessionToken);
 }
 
 void QAwsIoTClient::disconnect()
