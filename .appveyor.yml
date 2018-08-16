@@ -30,7 +30,7 @@ install:
   - cd QtMqtt
   - mkdir build
   - cd build
-  - cmake -G "%VS_FULL%" -DCMAKE_BUILD_TYPE=%configuration% -DBUILD_SHARED_LIBS=%SHARED% -DCMAKE_INSTALL_PREFIX=%APPVEYOR_BUILD_FOLDER%/installed ..
+  - cmake -G "%VS_FULL%" -DCMAKE_BUILD_TYPE=%configuration% -DBUILD_SHARED_LIBS=%SHARED% -DCMAKE_INSTALL_PREFIX=%INSTALL_DIR% ..
   - cmake --build . --target install
 
 before_build:
