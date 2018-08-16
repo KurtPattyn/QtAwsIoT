@@ -40,8 +40,7 @@ before_build:
   - cmake -G "%VS_FULL%" -DCMAKE_BUILD_TYPE=%configuration% -DBUILD_SHARED_LIBS=%SHARED% -DQt5Mqtt_DIR="%qt5mqtt%" ..
   
 build_script:
-  - cmake --build . --target all
+  - cmake --build . --target ALL_BUILD --config %configuration%
   
 test_script:
-  - cmake --build . --target test
-
+  - cmake --build . --target RUN_TESTS --config %configuration%
