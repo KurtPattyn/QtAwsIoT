@@ -37,7 +37,7 @@ before_build:
   - cd /D %APPVEYOR_BUILD_FOLDER%
   - mkdir build
   - cd build
-  - cmake -G "%VS_FULL%" -DCMAKE_BUILD_TYPE=%configuration% -DBUILD_SHARED_LIBS=OFF -DQt5Mqtt_DIR="%qt5mqtt%" ..
+  - cmake -G "%VS_FULL%" -DCMAKE_BUILD_TYPE=%configuration% -DBUILD_SHARED_LIBS=%SHARED% -DQt5Mqtt_DIR="%qt5mqtt%" ..
   
 build_script:
   - cmake --build . --target all
