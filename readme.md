@@ -62,6 +62,10 @@ make
 ## Usage
 Include the following in your `CMakeLists.txt` file  
 ```CMake
+find_package(Qt5Core)	
+find_package(Qt5NetWork)	
+find_package(Qt5WebSockets)
+find_package(Qt5Mqtt)
 find_package(Qt5AwsIoT)
 
 target_link_libraries(<target> Qt5::AwsIoT)
